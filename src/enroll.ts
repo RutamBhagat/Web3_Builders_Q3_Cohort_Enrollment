@@ -6,4 +6,12 @@ import { IDL, type WbaPrereq } from "../programs/wba_prereq";
 import { getKeypairFromEnvironment } from "@solana-developers/helpers";
 
 // Get the sender's public key from the environment
-const from = getKeypairFromEnvironment("WBA_SECRET_KEY");
+const keypair = getKeypairFromEnvironment("WBA_SECRET_KEY");
+// Create a devnet connection
+const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+// Github account
+const github = Buffer.from("RutamBhagat", "utf8");
+// Create our anchor provider
+const provider = new AnchorProvider(connection, new Wallet(keypair), { commitment: "confirmed" });
+// Create our program
+const program : Program<WbaPrereq> = new Program(IDL, provider);

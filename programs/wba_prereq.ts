@@ -1,4 +1,55 @@
-export type WbaPrereq = {
+import { type Idl } from "@coral-xyz/anchor";
+
+// Define the structure for the PDA seeds
+type PDAStructure = {
+  kind: "const" | "account";
+  value?: number[];
+  path?: string;
+};
+
+// Define the structure for an account
+type Account = {
+  name: string;
+  writable?: boolean;
+  signer?: boolean; // Optional, only for accounts that are signers
+  pda?: {
+    seeds: PDAStructure[];
+  }; // Optional, only if the account is a PDA
+  address?: string; // Optional for accounts that have a fixed address
+};
+
+// Define the structure for an argument
+type Argument = {
+  name: string;
+  type: string; // This can be extended to a more specific type if needed
+};
+
+// Define the structure for an instruction
+type Instruction = {
+  name: string;
+  discriminator: number[];
+  accounts: Account[];
+  args: Argument[];
+};
+
+// Define the structure for an error
+type Error = {
+  code: number;
+  name: string;
+  msg: string;
+};
+
+// Define the structure for a type
+type CustomType = {
+  name: string;
+  type: {
+    kind: "struct";
+    fields: Argument[];
+  };
+};
+
+// Define the structure for the IDL
+export type WbaPrereq = Idl & {
   address: string;
   metadata: {
     name: string;
@@ -6,46 +57,13 @@ export type WbaPrereq = {
     spec: string;
     description: string;
   };
-  instructions: Array<{
+  instructions: Instruction[];
+  accounts: {
     name: string;
     discriminator: number[];
-    accounts: Array<{
-      name: string;
-      writable?: boolean;
-      signer?: boolean;
-      pda?: {
-        seeds: Array<{
-          kind: string;
-          value?: number[] | string;
-          path?: string;
-        }>;
-      };
-      address?: string;
-    }>;
-    args: Array<{
-      name: string;
-      type: string;
-    }>;
-  }>;
-  accounts: Array<{
-    name: string;
-    discriminator: number[];
-  }>;
-  errors: Array<{
-    code: number;
-    name: string;
-    msg: string;
-  }>;
-  types: Array<{
-    name: string;
-    type: {
-      kind: string;
-      fields: Array<{
-        name: string;
-        type: string;
-      }>;
-    };
-  }>;
+  }[];
+  errors: Error[];
+  types: CustomType[];
 };
 
 export const IDL: WbaPrereq = {
