@@ -1,9 +1,9 @@
-import { Connection, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
-import wallet from "../dev-wallet.json";
+import { getKeypairFromEnvironment } from "@solana-developers/helpers";
 
-// We're going to import our keypair from the wallet file
-const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
+// Get the sender's public key from the environment
+const keypair = getKeypairFromEnvironment("SECRET_KEY");
 //Create a Solana devnet connection to devnet SOL tokens
 const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 

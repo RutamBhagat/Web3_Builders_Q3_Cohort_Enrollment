@@ -8,10 +8,12 @@ import {
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
 
-import wallet from "../dev-wallet.json";
+import { getKeypairFromEnvironment } from "@solana-developers/helpers";
 
-// Import our dev wallet keypair from the wallet file
-const from = Keypair.fromSecretKey(new Uint8Array(wallet));
+// Get the sender's public key from the environment
+const from = getKeypairFromEnvironment("SECRET_KEY");
+
+// Define our WBA public key
 // Define our WBA public key
 const to = new PublicKey(process.env.WBA_PUBLIC_KEY as string);
 const connection = new Connection("https://api.devnet.solana.com", "confirmed");
@@ -37,7 +39,7 @@ const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 //   }
 // })();
 
-// // Transfer all remaining SOL to WBA
+// Transfer all remaining SOL to WBA
 (async () => {
   try {
     // Get balance of dev wallet
