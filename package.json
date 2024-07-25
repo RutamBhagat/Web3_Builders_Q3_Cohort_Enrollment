@@ -6,10 +6,10 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "keygen": "bun ./keygen.ts",
-    "airdrop": "bun ./airdrop.ts",
-    "transfer": "bun ./transfer.ts",
-    "enroll": "bun ./enroll.ts"
+    "keygen": "bun src/keygen.ts",
+    "airdrop": "bun src/airdrop.ts",
+    "transfer": "bun src/transfer.ts",
+    "enroll": "bun src/enroll.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
