@@ -16,3 +16,24 @@ const github = Buffer.from("RutamBhagat", "utf8");
 const provider = new AnchorProvider(connection, new Wallet(keypair), { commitment: "confirmed" });
 // Create our program
 const program: Program<Idl> = new Program(IDL, provider);
+// Create the PDA for our enrollment account
+const enrollment_seeds = [Buffer.from("prereq"), keypair.publicKey.toBuffer()];
+const [enrollment_key, _bump] = PublicKey.findProgramAddressSync(enrollment_seeds, program.programId);
+
+// Execute our enrollment transaction
+(async () => {
+  try {
+    const txhash = await program.methods
+      .complete(github)
+      .accounts({
+        signer: keypair.publicKey,
+        enrollmentAccount: enrollment_key,
+      })
+      .signers([keypair])
+      .rpc();
+    console.log(`Success! Check out your TX here:
+https://explorer.solana.com/tx/${txhash}?cluster=devnet`);
+  } catch (e) {
+    console.error(`Oops, something went wrong: ${e}`);
+  }
+})();

@@ -24,3 +24,12 @@ $ bun ./transfer.ts
 Success! Check out your TX here:
 https://explorer.solana.com/tx/4YEzKtAafbrZuVjHGKCpxyejdVHzcM6hatkt21vhEukZcrPARjoAru11NVkWkE9dGaVhHD9NEbFjVLsUTjzU84HJ?cluster=devnet
 ```
+
+### Enroll in WBA program
+
+```shell
+bun enroll
+$ bun src/enroll.ts
+Success! Check out your TX here:
+https://explorer.solana.com/tx/3req6zX1aPfGamYjaA8HVX6BTxFx5oW9NXd4atSdgDBHiRz9VtNPJcPw3gveJocLUjBSqU395jQBP49r4igMEPVr?cluster=devnet
+```
